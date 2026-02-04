@@ -3,6 +3,8 @@ package fr.eni.ludotheque.bo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,7 +16,7 @@ import lombok.*;
 public class Jeu {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer no_jeu;
 
     @Column(nullable = false,length = 50)
@@ -23,7 +25,7 @@ public class Jeu {
     @Column(nullable = false,length = 13)
     @NonNull private String reference;
 
-    @Column(nullable = false,length = 10)
+    @Column(nullable = false)
     @NonNull private String age_min;
 
     @Column(nullable = false)
@@ -33,6 +35,14 @@ public class Jeu {
     @NonNull private Integer duree;
 
     @Column(nullable = false, length = 100)
-    @NonNull private Float tarif_jour;
+    @NonNull private Integer tarif_jour;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},
+    fetch = FetchType.EAGER)
+    @JoinTable(name = "JeuGenres",
+            joinColumns = {@JoinColumn(name = "jeu_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genres_id")}
+    )
+    @NonNull List<Genres> genresList;
 
 }
