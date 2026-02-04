@@ -45,4 +45,9 @@ public class Jeu {
     )
     @NonNull List<Genres> genresList;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch=FetchType.EAGER,
+            orphanRemoval=true,
+            mappedBy="jeu")
+    private List<Exemplaire> exemplaires;
 }
