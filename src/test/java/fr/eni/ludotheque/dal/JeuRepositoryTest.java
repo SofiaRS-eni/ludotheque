@@ -1,5 +1,6 @@
 package fr.eni.ludotheque.dal;
 
+import fr.eni.ludotheque.bo.Exemplaire;
 import fr.eni.ludotheque.bo.Genres;
 import fr.eni.ludotheque.bo.Jeu;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class JeuRepositoryTest {
     @Autowired
     private JeuRepository jeuRepository;
+    @Autowired
     private GenresRepository genresRepository;
 
     @Test
@@ -25,8 +27,10 @@ public class JeuRepositoryTest {
     {
         //Arrange
         Genres genres2 = new Genres("aventure");
-        Jeu jeu1 = new Jeu("test","1234567891011","12","test",8,5,List.of(genres2));
+        Exemplaire exemplaire1 = new Exemplaire("1234567891011",true);
+        Jeu jeu1 = new Jeu("test","1234567891011","12","test",8,5,List.of(genres2),List.of(exemplaire1));
 
+        genresRepository.save(genres2);
         jeuRepository.save(jeu1);
 
         //Act

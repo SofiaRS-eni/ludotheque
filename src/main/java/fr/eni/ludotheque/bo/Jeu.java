@@ -37,8 +37,7 @@ public class Jeu {
     @Column(nullable = false, length = 100)
     @NonNull private Integer tarif_jour;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},
-    fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "JeuGenres",
             joinColumns = {@JoinColumn(name = "jeu_id")},
             inverseJoinColumns = {@JoinColumn(name = "genres_id")}
@@ -49,5 +48,5 @@ public class Jeu {
             fetch=FetchType.EAGER,
             orphanRemoval=true,
             mappedBy="jeu")
-    private List<Exemplaire> exemplaires;
+    @NonNull private List<Exemplaire> exemplaires;
 }
