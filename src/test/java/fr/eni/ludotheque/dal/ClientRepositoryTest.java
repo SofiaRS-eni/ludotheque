@@ -1,5 +1,7 @@
 package fr.eni.ludotheque.dal;
 
+import fr.eni.ludotheque.bll.ClientAdresseService;
+import fr.eni.ludotheque.bll.ClientAdresseServiceImpl;
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +19,10 @@ public class ClientRepositoryTest {
 
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
     private AdresseRepository adresseRepository;
+    @Autowired
+    private ClientAdresseService clientAdresseService;
 
     @Test
     @DisplayName("Trouver un client connassaint son id")
@@ -27,13 +32,17 @@ public class ClientRepositoryTest {
         Adresse adresse1 = new Adresse("25","rue de Limoges","7900","Niort");
         Client client1 = new Client("Tata","Toto","tata@mail.com",adresse1);
 
-        clientRepository.save(client1);
+        //clientRepository.save(client1);
+        clientAdresseService.creerClient(client1);
+
 
 
         //Act
-        Optional<Client> clientOpt = clientRepository.findById(client1.getId());
+        //Optional<Client> clientOpt = clientRepository.findById(client1.getId());
+        Optional<Client> clientOpt = clientAdresseService.getClientById(client1.getId());
 
         //Assert
+
         assertTrue(clientOpt.isPresent());
         assertEquals(client1.getPrenom(),clientOpt.get().getPrenom());
         assertEquals(client1.getNom(),clientOpt.get().getNom());
@@ -43,6 +52,48 @@ public class ClientRepositoryTest {
 
         //clientRepository.deleteById(client1.getId());
 
+
+
+    }
+
+    @Test
+    @DisplayName("Modifier un client et son adresse")
+    public void testModifClient()
+    {
+        //Arrange
+        Adresse adresse1 = new Adresse("25","rue de Limoges","7900","Niort");
+        Client client1 = new Client("Tata","Toto","tata@mail.com",adresse1);
+
+
+        Client client2 = new Client("Tata","Toto","tata@mail.com",adresse1);
+
+        Adresse newAdresse = new Adresse("10","rue de Paris","7900","Niort");
+        Client newClient = new Client("Titi","Toto","titi@mail.com",newAdresse);
+
+        //clientRepository.save(client1);
+        clientAdresseService.creerClient(client1);
+
+
+
+        //Act
+        //Optional<Client> clientOpt = clientRepository.findById(client1.getId());
+        Optional<Client> clientOpt = clientAdresseService.getClientById(client1.getId());
+
+        //Cas positif
+        clientAdresseService.modifClient(client1.getId(),newClient);
+
+        //Cas negatif
+        //clientAdresseService.modifClient(client2.getId(),newClient);
+        //Assert
+
+        assertTrue(clientOpt.isPresent());
+        assertEquals(client1.getPrenom(),clientOpt.get().getPrenom());
+        assertEquals(client1.getNom(),clientOpt.get().getNom());
+        assertEquals(client1.getEmail(),clientOpt.get().getEmail());
+
+        assertEquals(clientOpt.get().getId(),adresse1.getId());
+
+        //clientRepository.deleteById(client1.getId());
     }
 
 }
