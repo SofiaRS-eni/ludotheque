@@ -124,4 +124,31 @@ public class ClientRepositoryTest {
 
        //clientRepository.deleteById(client1.getId());
   }
+
+    @Test
+    @DisplayName("trouver les clients dont le nom commence par la chaine fournie")
+    public void testGetClientByNom()
+    {
+        //Arrange
+        Adresse adresse1 = new Adresse("25","rue de Limoges","7900","Niort");
+        Client client1 = new Client("Tata","Toto","tata@mail.com",adresse1);
+
+
+        //clientRepository.save(client1);
+        Client client = clientAdresseService.creerClient(client1);
+
+
+
+        //Act
+        Optional<Client> clientOpt = clientAdresseService.getClientById(client.getId());
+
+
+        clientAdresseService.getClientByNom("T");
+
+        //Assert
+
+
+
+        //clientRepository.deleteById(client1.getId());
+    }
 }

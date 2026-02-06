@@ -8,6 +8,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,5 +77,11 @@ public class ClientAdresseServiceImpl implements ClientAdresseService {
         return adresseRepository.save(adresseID);
 
 
+    }
+
+    @Override
+    public List<Client> getClientByNom(String prefix)
+    {
+        return clientRepository.findCLientByNom(prefix);
     }
 }
