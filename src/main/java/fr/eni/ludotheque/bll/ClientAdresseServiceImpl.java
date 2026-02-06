@@ -23,17 +23,9 @@ public class ClientAdresseServiceImpl implements ClientAdresseService {
     }
 
     @Override
-    @Transactional
     public Client creerClient(Client client)
     {
-        try {
-            clientRepository.save(client);
-        }
-        catch (Exception e)
-        {
-            throw  e;
-        }
-        return client;
+            return clientRepository.save(client);
     }
 
     @Override
