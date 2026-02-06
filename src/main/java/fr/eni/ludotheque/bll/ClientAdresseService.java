@@ -1,5 +1,6 @@
 package fr.eni.ludotheque.bll;
 
+import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 
 import java.util.Optional;
@@ -9,4 +10,5 @@ public interface ClientAdresseService {
 
     Optional<Client> getClientById(Integer id);
     Client modifClient(Integer id ,Client client);
+    Adresse modifAdresseClient(Integer id, Adresse adresse);
 }

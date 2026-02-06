@@ -4,6 +4,7 @@ import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.AdresseRepository;
 import fr.eni.ludotheque.dal.ClientRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +61,20 @@ public class ClientAdresseServiceImpl implements ClientAdresseService {
 
         }
         return clientRepository.save(client);
+    }
+
+    @Override
+    public Adresse modifAdresseClient(Integer id,Adresse adresse) {
+        Client clientId = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Client non trouvé"));
+
+
+        Adresse adresseID = clientId.getAdresse();
+        adresseID.setNo_adresse(adresse.getNo_adresse());
+        adresseID.setRue(adresse.getRue());
+        adresseID.setCode_postal(adresse.getCode_postal());
+        adresseID.setVille(adresse.getVille());
+        return adresseRepository.save(adresseID);
+
+
     }
 }

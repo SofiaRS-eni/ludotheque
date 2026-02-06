@@ -96,4 +96,32 @@ public class ClientRepositoryTest {
         //clientRepository.deleteById(client1.getId());
     }
 
+    @Test
+    @DisplayName("Modifier l'adresse d'un client")
+    public void testModifAdresseClient()
+    {
+        //Arrange
+        Adresse adresse1 = new Adresse("25","rue de Limoges","7900","Niort");
+        Client client1 = new Client("Tata","Toto","tata@mail.com",adresse1);
+
+        Adresse newAdresse = new Adresse("10","rue de Paris","7900","Niort");
+
+
+        //clientRepository.save(client1);
+        Client client = clientAdresseService.creerClient(client1);
+
+
+
+        //Act
+        Optional<Client> clientOpt = clientAdresseService.getClientById(client.getId());
+
+
+        clientAdresseService.modifAdresseClient(client.getId(),newAdresse);
+
+        //Assert
+
+
+
+       //clientRepository.deleteById(client1.getId());
+  }
 }
