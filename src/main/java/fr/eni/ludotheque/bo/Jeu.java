@@ -44,6 +44,7 @@ public class Jeu {
     )
     @NonNull List<Genres> genresList;
 
+    //Inutile mappedBy mais il marche!
     @OneToMany(cascade = CascadeType.ALL,
             fetch=FetchType.EAGER,
             orphanRemoval=true,

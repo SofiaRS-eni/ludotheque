@@ -71,13 +71,13 @@ public class ClientRepositoryTest {
         Client newClient = new Client("Titi","Toto","titi@mail.com",newAdresse);
 
         //clientRepository.save(client1);
-        clientAdresseService.creerClient(client1);
+        Client client = clientAdresseService.creerClient(client1);
 
 
 
         //Act
         //Optional<Client> clientOpt = clientRepository.findById(client1.getId());
-        Optional<Client> clientOpt = clientAdresseService.getClientById(client1.getId());
+        Optional<Client> clientOpt = clientAdresseService.getClientById(client.getId());
 
         //Cas positif
         clientAdresseService.modifClient(client1.getId(),newClient);
